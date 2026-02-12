@@ -1,5 +1,7 @@
 {
   "name": "laser-cutting-tools-online-store",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

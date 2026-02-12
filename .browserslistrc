@@ -8,6 +8,7 @@
 # You can see what browsers were selected by your queries by running:
 #   npx browserslist
 
+# Angular 20 minimum supported browsers
 Chrome >=107
 Firefox >=106
 Edge >=107
