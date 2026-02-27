@@ -1,0 +1,52 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" />
+    </ion-buttons>
+    <ion-title>Nuevo producto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <!-- Zona de foto -->
+  <div class="photo-area" (click)="takePhoto()">
+    <img *ngIf="previewUrl" [src]="previewUrl" class="preview-img" [alt]="'Vista previa'" />
+    <div *ngIf="!previewUrl" class="photo-placeholder">
+      <ion-icon name="camera-outline" size="large" />
+      <p>Toca para tomar foto</p>
+    </div>
+  </div>
+
+  <!-- Formulario -->
+  <form [formGroup]="form" (ngSubmit)="save()">
+
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input formControlName="name" type="text" autocomplete="off" />
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Tipo</ion-label>
+      <ion-select formControlName="type" placeholder="Selecciona un tipo">
+        <ion-select-option *ngFor="let t of productTypes" [value]="t">{{ t }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Precio (COP)</ion-label>
+      <ion-input formControlName="price" type="number" min="0" />
+    </ion-item>
+
+    <ion-button
+      expand="block"
+      type="submit"
+      [disabled]="!canSave"
+      class="ion-margin-top"
+    >
+      Guardar producto
+    </ion-button>
+
+  </form>
+
+</ion-content>

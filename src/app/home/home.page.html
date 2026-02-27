@@ -10,5 +10,31 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- productos irán aquí -->
+
+  <ion-spinner *ngIf="loading" name="crescent" class="ion-margin" />
+
+  <div *ngIf="!loading && products.length > 0" class="product-grid">
+    <ion-card *ngFor="let p of products">
+      <img [src]="p.image_url" [alt]="p.name" class="product-img" />
+      <ion-card-header>
+        <ion-card-subtitle>{{ p.type }}</ion-card-subtitle>
+        <ion-card-title>{{ p.name }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p class="price">{{ p.price | currency:'COP':'symbol-narrow':'1.0-0' }}</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div *ngIf="!loading && products.length === 0" class="empty-state">
+    <ion-icon name="cube-outline" size="large" />
+    <p>Aún no hay productos.<br />¡Añade el primero!</p>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="goToAddProduct()">
+      <ion-icon name="add" />
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>

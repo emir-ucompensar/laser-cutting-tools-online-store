@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<productTypes>
+  <type>Cortadora</type>
+  <type>Grabadora</type>
+  <type>Accesorio</type>
+  <type>Fuentes de Poder</type>
+  <type>Repuesto</type>
+  <type>Impresora 3D</type>
+</productTypes>

@@ -21,6 +21,11 @@ const routes: Routes = [
     loadChildren: () => import('./auth/verify/verify.module').then(m => m.VerifyPageModule)
   },
   {
+    path: 'add-product',
+    loadChildren: () => import('./add-product/add-product.module').then(m => m.AddProductPageModule),
+    canActivate: [authGuard]
+  },
+  {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'

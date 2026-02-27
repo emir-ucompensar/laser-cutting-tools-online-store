@@ -1,1 +1,32 @@
-// Home page styles
+.product-grid {
+  padding: 0.5rem;
+}
+
+.product-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.price {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--ion-color-primary);
+  margin: 0;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  color: var(--ion-color-medium);
+  text-align: center;
+  gap: 1rem;
+
+  p {
+    font-size: 1rem;
+    margin: 0;
+  }
+}
