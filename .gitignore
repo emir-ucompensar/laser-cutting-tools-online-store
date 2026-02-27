@@ -20,6 +20,10 @@ log.txt
 # Ionic
 /.ionic
 /www
+
+# Credenciales — no commitear, usar environment.example.ts como plantilla
+/src/environments/environment.ts
+/src/environments/environment.prod.ts
 /platforms
 /plugins
 
