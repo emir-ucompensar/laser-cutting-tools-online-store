@@ -45,6 +45,18 @@ export class AuthService {
     return from(promise);
   }
 
+  /** Verifica el código OTP recibido por email tras el registro */
+  verifyOtp(email: string, token: string): Observable<AuthResult> {
+    const promise = this.supabaseService.supabase.auth
+      .verifyOtp({ email, token, type: 'email' })
+      .then(({ data, error }) => ({
+        data: data ?? null,
+        error: error?.message ?? null,
+      }));
+
+    return from(promise);
+  }
+
   /** Devuelve la sesión activa o null si no hay usuario autenticado */
   getSession(): Observable<Session | null> {
     const promise = this.supabaseService.supabase.auth

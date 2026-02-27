@@ -35,9 +35,8 @@
       Las contraseñas no coinciden
     </ion-note>
 
-    <!-- Feedback -->
-    <ion-text *ngIf="feedback" [color]="feedback.isError ? 'danger' : 'success'" class="feedback">
-      <p>{{ feedback.message }}</p>
+    <!-- Error -->
+    <ion-text color="danger" *ngIf="loading === false && form.touched && form.invalid" class="feedback">
     </ion-text>
 
     <!-- Botón -->

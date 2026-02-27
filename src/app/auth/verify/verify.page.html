@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/register" />
+    </ion-buttons>
+    <ion-title>Verificar email</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <p class="subtitle">
+    Ingresa el código de 6 dígitos que enviamos a <strong>{{ email }}</strong>
+  </p>
+
+  <form [formGroup]="form" (ngSubmit)="onVerify()">
+
+    <ion-item>
+      <ion-label position="floating">Código</ion-label>
+      <ion-input
+        type="number"
+        formControlName="token"
+        inputmode="numeric"
+        maxlength="6"
+        autocomplete="one-time-code" />
+    </ion-item>
+    <ion-note color="danger" *ngIf="form.get('token')?.invalid && form.get('token')?.touched">
+      Introduce el código recibido por email
+    </ion-note>
+
+    <ion-text color="danger" *ngIf="errorMessage" class="error-msg">
+      <p>{{ errorMessage }}</p>
+    </ion-text>
+
+    <ion-button expand="block" type="submit" [disabled]="form.invalid || loading" class="ion-margin-top">
+      <ion-spinner *ngIf="loading" name="crescent" />
+      <span *ngIf="!loading">Confirmar</span>
+    </ion-button>
+
+  </form>
+
+</ion-content>

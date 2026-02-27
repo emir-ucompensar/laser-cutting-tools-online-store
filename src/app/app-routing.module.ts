@@ -17,6 +17,10 @@ const routes: Routes = [
     loadChildren: () => import('./auth/register/register.module').then(m => m.RegisterPageModule)
   },
   {
+    path: 'verify',
+    loadChildren: () => import('./auth/verify/verify.module').then(m => m.VerifyPageModule)
+  },
+  {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'

@@ -14,10 +14,6 @@ export class RegisterPage {
   form: FormGroup;
   loading = false;
 
-  // Mensaje genérico — nunca revela si el email ya existe
-  readonly SUCCESS_MSG = 'Si el email es válido, recibirás un correo de confirmación.';
-  feedback: { message: string; isError: boolean } | null = null;
-
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
@@ -50,7 +46,6 @@ export class RegisterPage {
     if (this.form.invalid || this.loading) return;
 
     this.loading  = true;
-    this.feedback = null;
 
     const { email, password } = this.form.value;
 
@@ -61,15 +56,16 @@ export class RegisterPage {
   }
 
   private onSuccess(): void {
-    this.loading  = false;
-    this.feedback = { message: this.SUCCESS_MSG, isError: false };
+    this.loading = false;
+    const email  = this.form.get('email')?.value;
     this.form.reset();
+    // Navega a /verify pasando el email para que pueda verificar el OTP
+    this.router.navigate(['/verify'], { queryParams: { email } });
   }
 
   private onError(): void {
-    this.loading  = false;
+    this.loading = false;
     // Error genérico — no se expone el detalle técnico al usuario
-    this.feedback = { message: 'No se pudo completar el registro. Inténtalo de nuevo.', isError: true };
   }
 
   goToLogin(): void {

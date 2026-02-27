@@ -11,7 +11,15 @@ export class SupabaseService {
   constructor() {
     this.client = createClient(
       environment.supabase.url,
-      environment.supabase.key
+      environment.supabase.key,
+      {
+        auth: {
+          persistSession: true,
+          autoRefreshToken: true,
+          // Necesario en Capacitor/WebView: evita el error de NavigatorLock
+          detectSessionInUrl: false,
+        }
+      }
     );
   }
 
