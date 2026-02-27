@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Crear cuenta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <form [formGroup]="form" (ngSubmit)="onRegister()">
+
+    <!-- Email -->
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" formControlName="email" autocomplete="email" />
+    </ion-item>
+    <ion-note color="danger" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+      Email inválido
+    </ion-note>
+
+    <!-- Contraseña -->
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input type="password" formControlName="password" autocomplete="new-password" />
+    </ion-item>
+    <ion-note color="danger" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+      Mínimo 8 caracteres
+    </ion-note>
+
+    <!-- Confirmar contraseña -->
+    <ion-item>
+      <ion-label position="floating">Confirmar contraseña</ion-label>
+      <ion-input type="password" formControlName="confirmPassword" autocomplete="new-password" />
+    </ion-item>
+    <ion-note color="danger" *ngIf="form.errors?.['passwordsMismatch'] && form.get('confirmPassword')?.touched">
+      Las contraseñas no coinciden
+    </ion-note>
+
+    <!-- Feedback -->
+    <ion-text *ngIf="feedback" [color]="feedback.isError ? 'danger' : 'success'" class="feedback">
+      <p>{{ feedback.message }}</p>
+    </ion-text>
+
+    <!-- Botón -->
+    <ion-button expand="block" type="submit" [disabled]="form.invalid || loading" class="ion-margin-top">
+      <ion-spinner *ngIf="loading" name="crescent" />
+      <span *ngIf="!loading">Registrarse</span>
+    </ion-button>
+
+  </form>
+
+  <!-- Ir al login -->
+  <ion-button fill="clear" expand="block" (click)="goToLogin()">
+    ¿Ya tienes cuenta? Inicia sesión
+  </ion-button>
+
+</ion-content>

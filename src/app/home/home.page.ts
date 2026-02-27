@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../core/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +9,11 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class HomePage {
+  constructor(private auth: AuthService, private router: Router) {}
 
-  constructor() {}
-
+  logout(): void {
+    this.auth.logout().subscribe({
+      next: () => this.router.navigate(['/login'], { replaceUrl: true })
+    });
+  }
 }
