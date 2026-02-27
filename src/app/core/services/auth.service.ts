@@ -48,7 +48,7 @@ export class AuthService {
   /** Verifica el código OTP recibido por email tras el registro */
   verifyOtp(email: string, token: string): Observable<AuthResult> {
     const promise = this.supabaseService.supabase.auth
-      .verifyOtp({ email, token, type: 'email' })
+      .verifyOtp({ email, token: String(token), type: 'signup' })
       .then(({ data, error }) => ({
         data: data ?? null,
         error: error?.message ?? null,
