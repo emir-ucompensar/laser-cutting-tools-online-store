@@ -134,6 +134,30 @@ ion-footer .bottom-nav {
   background: var(--color-overlay);
   gap: 0;
 
+  &__delete {
+    flex-shrink: 0;
+    align-self: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--color-fg-muted);
+    padding: 0 var(--app-spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    transition: color 0.15s;
+
+    ion-icon {
+      font-size: 18px;
+      pointer-events: none;
+    }
+
+    &:hover {
+      color: var(--color-danger);
+    }
+  }
+
   &__image {
     flex-shrink: 0;
     width: 90px;
@@ -197,10 +221,34 @@ ion-footer .bottom-nav {
   .product-item {
     flex-direction: column;
     align-items: stretch;
+    position: relative;
+
+    // En grid: el botón flota sobre la esquina superior derecha de la imagen
+    &__delete {
+      position: absolute;
+      top: var(--app-spacing-xs);
+      right: var(--app-spacing-xs);
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(4px);
+      color: var(--color-fg);
+
+      ion-icon {
+        font-size: 15px;
+      }
+
+      &:hover {
+        background: rgba(248, 81, 73, 0.75);
+        border-color: transparent;
+        color: #ffffff;
+      }
+    }
 
     &__image {
       width: 100%;
-      // mantenemos el ratio 1:1
       aspect-ratio: 1 / 1;
       height: auto;
 

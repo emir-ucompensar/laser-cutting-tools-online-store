@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { environment } from '../../../environments/environment';
+import { capacitorStorageAdapter } from '../storage/capacitor-storage.adapter';
 
 @Injectable({
   providedIn: 'root',
@@ -16,8 +17,10 @@ export class SupabaseService {
         auth: {
           persistSession: true,
           autoRefreshToken: true,
-          // Necesario en Capacitor/WebView: evita el error de NavigatorLock
           detectSessionInUrl: false,
+          // Usa @capacitor/preferences para persistir la sesión de forma
+          // nativa en Android y en web vía su capa de compatibilidad.
+          storage: capacitorStorageAdapter,
         }
       }
     );

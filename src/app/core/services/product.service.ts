@@ -63,6 +63,19 @@ export class ProductService {
     return from(promise);
   }
 
+  /** Elimina un producto por su id */
+  deleteProduct(id: string): Observable<void> {
+    const promise = this.supabaseService.supabase
+      .from(this.TABLE)
+      .delete()
+      .eq('id', id)
+      .then(({ error }) => {
+        if (error) throw error;
+      });
+
+    return from(promise);
+  }
+
   /** Inserta un nuevo producto y devuelve el registro creado */
   createProduct(dto: CreateProductDto): Observable<Product> {
     const promise = this.supabaseService.supabase

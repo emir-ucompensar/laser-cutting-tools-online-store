@@ -45,6 +45,9 @@
         <h3 class="product-item__name">{{ p.name }}</h3>
         <span class="product-item__price">{{ p.price | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
       </div>
+      <button class="product-item__delete" (click)="confirmDelete(p)" title="Eliminar">
+        <ion-icon name="trash-outline" />
+      </button>
     </div>
   </div>
 

@@ -1,31 +1,69 @@
+.add-product {
+  padding: 1.5rem 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 .photo-area {
   width: 100%;
   height: 220px;
-  border-radius: 12px;
+  border: 2px dashed var(--color-border);
   overflow: hidden;
-  background: var(--ion-color-light);
+  background: var(--color-overlay);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 1.5rem;
   cursor: pointer;
+  position: relative;
+
+  &:active {
+    background: var(--color-subtle);
+  }
+
+  &__preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--color-fg-muted);
+
+    ion-icon {
+      font-size: 2.5rem;
+    }
+
+    span {
+      font-size: 0.9rem;
+    }
+  }
 }
 
-.preview-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.photo-placeholder {
+.add-product__form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  color: var(--ion-color-medium);
-  gap: 0.5rem;
+  gap: 0.25rem;
 
-  p {
-    margin: 0;
-    font-size: 0.9rem;
+  ion-input,
+  ion-select {
+    --border-radius: 0;
+    margin-bottom: 0.25rem;
   }
+}
+
+.field-error {
+  color: var(--color-danger);
+  font-size: 0.78rem;
+  margin: 0 0 0.75rem 0;
+  padding-left: 0.25rem;
+}
+
+.submit-btn {
+  margin-top: 1.25rem;
 }

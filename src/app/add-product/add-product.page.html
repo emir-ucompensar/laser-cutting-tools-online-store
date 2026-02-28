@@ -1,52 +1,73 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home" />
+      <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
     <ion-title>Nuevo producto</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content [fullscreen]="true">
+  <div class="add-product">
 
-  <!-- Zona de foto -->
-  <div class="photo-area" (click)="takePhoto()">
-    <img *ngIf="previewUrl" [src]="previewUrl" class="preview-img" [alt]="'Vista previa'" />
-    <div *ngIf="!previewUrl" class="photo-placeholder">
-      <ion-icon name="camera-outline" size="large" />
-      <p>Toca para tomar foto</p>
+    <!-- Zona de foto -->
+    <div class="photo-area" (click)="takePhoto()">
+      <img *ngIf="previewUrl" [src]="previewUrl" class="photo-area__preview" alt="Vista previa" />
+      <div *ngIf="!previewUrl" class="photo-area__placeholder">
+        <ion-icon name="camera-outline"></ion-icon>
+        <span>Toca para añadir foto</span>
+      </div>
     </div>
-  </div>
 
-  <!-- Formulario -->
-  <form [formGroup]="form" (ngSubmit)="save()">
+    <!-- Formulario -->
+    <form [formGroup]="form" (ngSubmit)="save()" class="add-product__form">
 
-    <ion-item>
-      <ion-label position="floating">Nombre</ion-label>
-      <ion-input formControlName="name" type="text" autocomplete="off" />
-    </ion-item>
+      <ion-input
+        fill="outline"
+        label="Nombre del producto"
+        labelPlacement="floating"
+        formControlName="name"
+        type="text"
+        autocomplete="off"
+      ></ion-input>
+      <p class="field-error" *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+        Mínimo 3 caracteres
+      </p>
 
-    <ion-item>
-      <ion-label position="floating">Tipo</ion-label>
-      <ion-select formControlName="type" placeholder="Selecciona un tipo">
+      <ion-select
+        fill="outline"
+        label="Tipo de producto"
+        labelPlacement="floating"
+        formControlName="type"
+        placeholder="Selecciona un tipo"
+      >
         <ion-select-option *ngFor="let t of productTypes" [value]="t">{{ t }}</ion-select-option>
       </ion-select>
-    </ion-item>
+      <p class="field-error" *ngIf="form.get('type')?.invalid && form.get('type')?.touched">
+        Selecciona un tipo
+      </p>
 
-    <ion-item>
-      <ion-label position="floating">Precio (COP)</ion-label>
-      <ion-input formControlName="price" type="number" min="0" />
-    </ion-item>
+      <ion-input
+        fill="outline"
+        label="Precio (COP)"
+        labelPlacement="floating"
+        formControlName="price"
+        type="number"
+        min="0"
+      ></ion-input>
+      <p class="field-error" *ngIf="form.get('price')?.invalid && form.get('price')?.touched">
+        Ingresa un precio válido
+      </p>
 
-    <ion-button
-      expand="block"
-      type="submit"
-      [disabled]="!canSave"
-      class="ion-margin-top"
-    >
-      Guardar producto
-    </ion-button>
+      <ion-button
+        expand="block"
+        type="submit"
+        [disabled]="!canSave"
+        class="submit-btn"
+      >
+        Guardar producto
+      </ion-button>
 
-  </form>
-
+    </form>
+  </div>
 </ion-content>

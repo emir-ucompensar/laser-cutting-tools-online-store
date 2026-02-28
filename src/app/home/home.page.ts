@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Platform } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 import { AuthService } from '../core/services/auth.service';
 import { ProductService } from '../core/services/product.service';
 import { Product } from '../core/models/product.models';
@@ -25,6 +25,7 @@ export class HomePage {
     private productService: ProductService,
     private router: Router,
     private platform: Platform,
+    private alertCtrl: AlertController,
   ) {}
 
   ionViewWillEnter(): void {
@@ -46,6 +47,30 @@ export class HomePage {
 
   goToAddProduct(): void {
     this.router.navigate(['/add-product']);
+  }
+
+  async confirmDelete(product: Product): Promise<void> {
+    const alert = await this.alertCtrl.create({
+      header: 'Eliminar producto',
+      message: `¿Eliminar "${product.name}"? Esta acción no se puede deshacer.`,
+      buttons: [
+        { text: 'Cancelar', role: 'cancel' },
+        {
+          text: 'Eliminar',
+          cssClass: 'danger',
+          handler: () => this.deleteProduct(product.id),
+        },
+      ],
+    });
+    await alert.present();
+  }
+
+  private deleteProduct(id: string): void {
+    this.productService.deleteProduct(id).subscribe({
+      next: () => {
+        this.products = this.products.filter(p => p.id !== id);
+      },
+    });
   }
 
   logout(): void {

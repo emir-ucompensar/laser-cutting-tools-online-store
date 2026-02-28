@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { switchMap } from 'rxjs/operators';
 
 import { ProductService } from '../core/services/product.service';
@@ -26,7 +26,7 @@ export class AddProductPage {
     private authService: AuthService,
     private router: Router,
     private loadingCtrl: LoadingController,
-    private toastCtrl: ToastController,
+    private alertCtrl: AlertController,
   ) {
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -87,12 +87,12 @@ export class AddProductPage {
       },
       error: async () => {
         await loader.dismiss();
-        const toast = await this.toastCtrl.create({
+        const alert = await this.alertCtrl.create({
+          header: 'Error al guardar',
           message: 'No se pudo guardar el producto. Intenta de nuevo.',
-          duration: 3000,
-          color: 'danger',
+          buttons: ['Aceptar'],
         });
-        await toast.present();
+        await alert.present();
       },
     });
   }
