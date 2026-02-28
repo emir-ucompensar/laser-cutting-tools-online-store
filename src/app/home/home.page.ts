@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Platform } from '@ionic/angular';
 import { AuthService } from '../core/services/auth.service';
 import { ProductService } from '../core/services/product.service';
 import { Product } from '../core/models/product.models';
@@ -14,10 +15,16 @@ export class HomePage {
   products: Product[] = [];
   loading = false;
 
+  /** True cuando corre en navegador web (no en Capacitor nativo) */
+  get isWeb(): boolean {
+    return !this.platform.is('capacitor');
+  }
+
   constructor(
     private auth: AuthService,
     private productService: ProductService,
     private router: Router,
+    private platform: Platform,
   ) {}
 
   ionViewWillEnter(): void {

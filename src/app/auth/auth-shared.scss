@@ -1,0 +1,122 @@
+// =============================================================================
+// Estilos compartidos — páginas de autenticación
+// Importado con @use '../auth-shared' as * en cada página de auth
+// =============================================================================
+
+// --- Fondo full-height con centrado vertical ---------------------------------
+:host {
+  display: contents;
+}
+
+.auth-content {
+  --background: var(--color-canvas);
+}
+
+// --- Contenedor centrado (funciona en móvil y web) ---------------------------
+ion-content.auth-content::part(scroll) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  padding: var(--app-spacing-lg);
+}
+
+// --- Card del formulario ------------------------------------------------------
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--color-overlay);
+  border: 1px solid var(--color-border);
+  border-radius: 0;
+  padding: var(--app-spacing-xl) var(--app-spacing-lg);
+}
+
+// --- Logo superior ------------------------------------------------------------
+.auth-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--app-spacing-lg);
+
+  img {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+  }
+}
+
+// --- Títulos ------------------------------------------------------------------
+.auth-title {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--color-fg);
+  margin: 0 0 var(--app-spacing-xs);
+  text-align: center;
+}
+
+.auth-subtitle {
+  font-size: 0.875rem;
+  color: var(--color-fg-muted);
+  margin: 0 0 var(--app-spacing-lg);
+  text-align: center;
+  line-height: 1.5;
+}
+
+// --- Formulario ---------------------------------------------------------------
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+// --- Inputs con fill="outline" -----------------------------------------------
+.auth-input {
+  --background:              var(--color-canvas);
+  --color:                   var(--color-fg);
+  --placeholder-color:       var(--color-fg-muted);
+  --placeholder-opacity:     1;
+  --border-color:            var(--color-border);
+  --border-radius:           0;
+  --border-width:            1px;
+  --highlight-color-focused: var(--color-primary);
+  --highlight-color-valid:   var(--color-success);
+  --highlight-color-invalid: var(--color-danger);
+  --padding-start:           var(--app-spacing-md);
+  --padding-end:             var(--app-spacing-md);
+  margin-bottom: var(--app-spacing-sm);
+  font-size: 0.9375rem;
+}
+
+// --- Error de validación inline -----------------------------------------------
+.field-error {
+  font-size: 0.75rem;
+  color: var(--color-danger);
+  margin: -4px 0 var(--app-spacing-sm) 2px;
+  padding: 0;
+}
+
+// --- Botón principal ----------------------------------------------------------
+.auth-btn {
+  margin-top: var(--app-spacing-md);
+}
+
+// --- Link de navegación -------------------------------------------------------
+.auth-link {
+  --background:           transparent;
+  --background-hover:     transparent;
+  --background-focused:   transparent;
+  --background-activated: transparent;
+  --color:                var(--color-fg-muted);
+  --border-radius:        0;
+  font-size: 0.875rem;
+  margin-top: var(--app-spacing-sm);
+
+  &::part(native) {
+    justify-content: center;
+    text-align: center;
+  }
+
+  strong {
+    color: var(--color-primary);
+  }
+}

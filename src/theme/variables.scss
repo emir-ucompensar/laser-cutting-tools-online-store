@@ -1,2 +1,153 @@
-// For information on how to create your own theme, please refer to:
-// https://ionicframework.com/docs/theming/
+// =============================================================================
+// Design Tokens — Pure Dark Gray palette
+// =============================================================================
+//
+// Referencia de niveles de superficie:
+//   canvas-default  #0f0f0f  → fondo de página
+//   canvas-overlay  #1a1a1a  → cards, toolbars, items
+//   canvas-subtle   #242424  → hover, filas alternas
+//   border-default  #333333  → bordes y divisores
+//
+// Acromáticos (neutros puros, sin variante azul):
+//   fg-default      #f0f0f0  → texto primario
+//   fg-muted        #888888  → placeholders, subtítulos
+//
+// Semánticos:
+//   blue            #388bfd  → primario / acciones
+//   red             #f85149  → peligro / errores
+//   green           #3fb950  → éxito
+//   yellow          #d29922  → advertencia
+// =============================================================================
+
+:root {
+  // --- Fuente -----------------------------------------------------------
+  --ion-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui,
+    Roboto, sans-serif;
+
+  // --- Color primario (azul) --------------------------------------------
+  --ion-color-primary:          #388bfd;
+  --ion-color-primary-rgb:      56, 139, 253;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade:    #2f78d6;
+  --ion-color-primary-tint:     #4d9afd;
+
+  // --- Secundario -------------------------------------------------------
+  --ion-color-secondary:          #555555;
+  --ion-color-secondary-rgb:      85, 85, 85;
+  --ion-color-secondary-contrast: #f0f0f0;
+  --ion-color-secondary-contrast-rgb: 240, 240, 240;
+  --ion-color-secondary-shade:    #444444;
+  --ion-color-secondary-tint:     #666666;
+
+  // --- Terciario --------------------------------------------------------
+  --ion-color-tertiary:          #888888;
+  --ion-color-tertiary-rgb:      136, 136, 136;
+  --ion-color-tertiary-contrast: #0f0f0f;
+  --ion-color-tertiary-contrast-rgb: 15, 15, 15;
+  --ion-color-tertiary-shade:    #777777;
+  --ion-color-tertiary-tint:     #999999;
+
+  // --- Éxito ------------------------------------------------------------
+  --ion-color-success:          #3fb950;
+  --ion-color-success-rgb:      63, 185, 80;
+  --ion-color-success-contrast: #0f0f0f;
+  --ion-color-success-contrast-rgb: 15, 15, 15;
+  --ion-color-success-shade:    #36a046;
+  --ion-color-success-tint:     #55c266;
+
+  // --- Advertencia ------------------------------------------------------
+  --ion-color-warning:          #d29922;
+  --ion-color-warning-rgb:      210, 153, 34;
+  --ion-color-warning-contrast: #0f0f0f;
+  --ion-color-warning-contrast-rgb: 15, 15, 15;
+  --ion-color-warning-shade:    #b8841e;
+  --ion-color-warning-tint:     #d7a338;
+
+  // --- Peligro ----------------------------------------------------------
+  --ion-color-danger:          #f85149;
+  --ion-color-danger-rgb:      248, 81, 73;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade:    #d4463f;
+  --ion-color-danger-tint:     #f9625b;
+
+  // --- Oscuro (superficie de cards/items) ------------------------------
+  --ion-color-dark:          #1a1a1a;
+  --ion-color-dark-rgb:      26, 26, 26;
+  --ion-color-dark-contrast: #f0f0f0;
+  --ion-color-dark-contrast-rgb: 240, 240, 240;
+  --ion-color-dark-shade:    #0f0f0f;
+  --ion-color-dark-tint:     #242424;
+
+  // --- Medio (texto muted / placeholders) ------------------------------
+  --ion-color-medium:          #888888;
+  --ion-color-medium-rgb:      136, 136, 136;
+  --ion-color-medium-contrast: #0f0f0f;
+  --ion-color-medium-contrast-rgb: 15, 15, 15;
+  --ion-color-medium-shade:    #777777;
+  --ion-color-medium-tint:     #999999;
+
+  // --- Claro (superficie sutil / hover) --------------------------------
+  --ion-color-light:          #242424;
+  --ion-color-light-rgb:      36, 36, 36;
+  --ion-color-light-contrast: #f0f0f0;
+  --ion-color-light-contrast-rgb: 240, 240, 240;
+  --ion-color-light-shade:    #1a1a1a;
+  --ion-color-light-tint:     #2e2e2e;
+}
+
+// =============================================================================
+// Dark mode — siempre activo
+// =============================================================================
+body {
+  // --- Superficies de fondo --------------------------------------------
+  --ion-background-color:     #0f0f0f;
+  --ion-background-color-rgb: 15, 15, 15;
+
+  // --- Texto -----------------------------------------------------------
+  --ion-text-color:     #f0f0f0;
+  --ion-text-color-rgb: 240, 240, 240;
+
+  // --- Componentes específicos -----------------------------------------
+  --ion-toolbar-background:   #1a1a1a;
+  --ion-toolbar-color:        #f0f0f0;
+  --ion-toolbar-border-color: #333333;
+
+  --ion-tab-bar-background:   #1a1a1a;
+  --ion-tab-bar-border-color: #333333;
+
+  --ion-card-background:      #1a1a1a;
+
+  --ion-item-background:      #1a1a1a;
+  --ion-item-border-color:    #333333;
+
+  --ion-border-color:         #333333;
+
+  --ion-placeholder-color:    #888888;
+
+  // --- Tokens de diseño expuestos como variables propias ---------------
+  --color-canvas:      #0f0f0f;
+  --color-overlay:     #1a1a1a;
+  --color-subtle:      #242424;
+  --color-border:      #333333;
+  --color-fg:          #f0f0f0;
+  --color-fg-muted:    #888888;
+  --color-primary:     #388bfd;
+  --color-danger:      #f85149;
+  --color-success:     #3fb950;
+  --color-warning:     #d29922;
+
+  // --- Radio de borde: 0 — diseño completamente cuadrado ---------------
+  --app-radius-sm:  0px;
+  --app-radius-md:  0px;
+  --app-radius-lg:  0px;
+  --app-radius-xl:  0px;
+
+  // --- Espaciado -------------------------------------------------------
+  --app-spacing-xs: 4px;
+  --app-spacing-sm: 8px;
+  --app-spacing-md: 16px;
+  --app-spacing-lg: 24px;
+  --app-spacing-xl: 32px;
+}

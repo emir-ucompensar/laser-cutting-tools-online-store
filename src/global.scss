@@ -32,6 +32,209 @@
  * https://ionicframework.com/docs/theming/dark-mode
  */
 
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+@import "@ionic/angular/css/palettes/dark.always.css";
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import "@ionic/angular/css/palettes/dark.system.css";
+/* @import "@ionic/angular/css/palettes/dark.system.css"; */
+
+// =============================================================================
+// Estilos globales de la app
+// =============================================================================
+
+// --- Tipografía base --------------------------------------------------------
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+// --- Scroll limpio (web) ----------------------------------------------------
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-canvas);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 0;
+}
+
+// --- ion-content: fondo general ---------------------------------------------
+ion-content {
+  --background: var(--color-canvas);
+}
+
+// --- ion-toolbar ------------------------------------------------------------
+ion-toolbar {
+  --background:      var(--color-overlay);
+  --color:           var(--color-fg);
+  --border-color:    var(--color-border);
+  --border-width:    0 0 1px 0;
+  --border-style:    solid;
+  --padding-start:   var(--app-spacing-md);
+  --padding-end:     var(--app-spacing-md);
+}
+
+ion-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+// --- ion-item ---------------------------------------------------------------
+ion-item {
+  --background:         var(--color-overlay);
+  --background-focused: var(--color-subtle);
+  --background-hover:   var(--color-subtle);
+  --border-color:       var(--color-border);
+  --color:              var(--color-fg);
+  --padding-start:      var(--app-spacing-md);
+  --inner-padding-end:  var(--app-spacing-md);
+  --border-radius:      0;
+  border-radius:        0;
+  margin-bottom:        var(--app-spacing-sm);
+
+  ion-label {
+    color: var(--color-fg-muted) !important;
+    font-size: 0.875rem;
+  }
+
+  ion-input,
+  ion-select,
+  ion-textarea {
+    --color:             var(--color-fg);
+    --placeholder-color: var(--color-fg-muted);
+    --placeholder-opacity: 1;
+    caret-color:         var(--color-primary);
+    font-size: 0.9375rem;
+  }
+}
+
+// --- ion-card ---------------------------------------------------------------
+ion-card {
+  --background:  var(--color-overlay);
+  --color:       var(--color-fg);
+  border:        1px solid var(--color-border);
+  border-radius: 0;
+  box-shadow:    none;
+  margin:        0 0 var(--app-spacing-md) 0;
+}
+
+ion-card-subtitle {
+  color: var(--color-fg-muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+ion-card-title {
+  color: var(--color-fg);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+// --- ion-button: base (todos) -----------------------------------------------
+ion-button {
+  --border-radius:      0;
+  --box-shadow:         none;
+}
+
+// --- ion-button principal (solid) -------------------------------------------
+ion-button[expand="block"]:not([fill="clear"]):not([fill="outline"]),
+ion-button[expand="full"]:not([fill="clear"]):not([fill="outline"]) {
+  --background:           var(--color-primary);
+  --background-hover:     #2f78d6;
+  --background-focused:   #2f78d6;
+  --background-activated: #2f78d6;
+  --color:                #ffffff;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  letter-spacing: 0.02em;
+  height: 44px;
+
+  &[disabled] {
+    --background: var(--color-subtle);
+    --color:      var(--color-fg-muted);
+    opacity: 1;
+  }
+}
+
+// --- ion-button fill="clear" (links de navegación) -------------------------
+ion-button[fill="clear"] {
+  --background:           transparent;
+  --background-hover:     transparent;
+  --background-focused:   transparent;
+  --background-activated: transparent;
+  --color:                var(--color-fg);
+  --ripple-color:         transparent;
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+// --- ion-back-button --------------------------------------------------------
+ion-back-button {
+  --color: var(--color-fg-muted);
+}
+
+// --- ion-fab-button ---------------------------------------------------------
+ion-fab-button {
+  --background:       var(--color-primary);
+  --background-hover: #2f78d6;
+  --color:            #ffffff;
+  --box-shadow:       0 4px 16px rgba(56, 139, 253, 0.35);
+  --border-radius:    0;
+}
+
+// --- ion-spinner (en botones) -----------------------------------------------
+ion-button ion-spinner {
+  color: #ffffff;
+  width: 20px;
+  height: 20px;
+}
+
+// --- ion-note (validaciones inline) ----------------------------------------
+ion-note {
+  font-size: 0.75rem;
+  padding: 2px var(--app-spacing-md) 6px;
+}
+
+// --- ion-select-option ------------------------------------------------------
+ion-select-popover ion-item {
+  --color: var(--color-fg);
+}
+
+// --- AlertController modal (errores / info) ---------------------------------
+.alert-wrapper {
+  background:    var(--color-overlay) !important;
+  border:        1px solid var(--color-border) !important;
+  border-radius: 0 !important;
+}
+
+.alert-title,
+.alert-message {
+  color: var(--color-fg) !important;
+}
+
+.alert-button-inner {
+  color: var(--color-primary) !important;
+  font-weight: 600;
+}
+
+.alert-button.danger .alert-button-inner {
+  color: var(--color-danger) !important;
+}
+
+// --- LoadingController ------------------------------------------------------
+.loading-wrapper {
+  background:    var(--color-overlay) !important;
+  border:        1px solid var(--color-border) !important;
+  border-radius: 0 !important;
+  color:         var(--color-fg) !important;
+  padding: var(--app-spacing-lg) !important;
+}
+
+.loading-content {
+  color: var(--color-fg-muted) !important;
+  font-size: 0.9rem !important;
+}

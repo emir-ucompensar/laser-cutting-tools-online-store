@@ -1,40 +1,77 @@
-<ion-header [translucent]="true">
+<!-- ============================================================
+  NAVBAR WEB — solo visible en navegador
+============================================================ -->
+<header class="web-navbar" *ngIf="isWeb">
+  <div class="web-navbar__logo">
+    <img src="assets/images/logo.png" alt="Logo" />
+  </div>
+  <span class="web-navbar__brand">Laser Cutting Tools</span>
+  <div class="web-navbar__actions">
+    <button class="web-navbar__btn" (click)="goToAddProduct()">
+      <ion-icon name="add-outline" />
+      <span>Añadir producto</span>
+    </button>
+    <button class="web-navbar__btn web-navbar__btn--ghost" (click)="logout()">
+      <ion-icon name="log-out-outline" />
+      <span>Cerrar sesión</span>
+    </button>
+  </div>
+</header>
+
+<!-- ============================================================
+  HEADER MOBILE — solo visible en Capacitor / Android
+============================================================ -->
+<ion-header *ngIf="!isWeb">
   <ion-toolbar>
     <ion-title>Laser Cutting Tools</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="logout()">
-        <ion-icon slot="icon-only" name="log-out-outline" />
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
+<!-- ============================================================
+  CONTENIDO PRINCIPAL
+============================================================ -->
 <ion-content [fullscreen]="true">
 
-  <ion-spinner *ngIf="loading" name="crescent" class="ion-margin" />
+  <ion-spinner *ngIf="loading" name="crescent" class="center-spinner" />
 
-  <div *ngIf="!loading && products.length > 0" class="product-grid">
-    <ion-card *ngFor="let p of products">
-      <img [src]="p.image_url" [alt]="p.name" class="product-img" />
-      <ion-card-header>
-        <ion-card-subtitle>{{ p.type }}</ion-card-subtitle>
-        <ion-card-title>{{ p.name }}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <p class="price">{{ p.price | currency:'COP':'symbol-narrow':'1.0-0' }}</p>
-      </ion-card-content>
-    </ion-card>
+  <!-- Lista de productos -->
+  <div *ngIf="!loading && products.length > 0" class="product-list">
+    <div class="product-item" *ngFor="let p of products">
+      <div class="product-item__image">
+        <img [src]="p.image_url" [alt]="p.name" />
+      </div>
+      <div class="product-item__info">
+        <span class="product-item__type">{{ p.type }}</span>
+        <h3 class="product-item__name">{{ p.name }}</h3>
+        <span class="product-item__price">{{ p.price | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
+      </div>
+    </div>
   </div>
 
+  <!-- Estado vacío -->
   <div *ngIf="!loading && products.length === 0" class="empty-state">
-    <ion-icon name="cube-outline" size="large" />
+    <ion-icon name="cube-outline" />
     <p>Aún no hay productos.<br />¡Añade el primero!</p>
   </div>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="goToAddProduct()">
-      <ion-icon name="add" />
-    </ion-fab-button>
-  </ion-fab>
-
 </ion-content>
+
+<!-- ============================================================
+  BARRA DE NAVEGACIÓN INFERIOR — solo en Android / Capacitor
+============================================================ -->
+<ion-footer *ngIf="!isWeb">
+  <ion-toolbar class="bottom-nav">
+    <ion-buttons slot="start">
+      <ion-button (click)="goToAddProduct()" class="bottom-nav__btn">
+        <ion-icon name="add-outline" slot="start" />
+        Añadir
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()" class="bottom-nav__btn bottom-nav__btn--ghost">
+        <ion-icon name="log-out-outline" slot="start" />
+        Salir
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

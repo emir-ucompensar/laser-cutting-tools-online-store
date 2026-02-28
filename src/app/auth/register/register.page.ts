@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 import { AuthService } from '../../core/services/auth.service';
 
@@ -17,7 +18,8 @@ export class RegisterPage {
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private alertCtrl: AlertController,
   ) {
     this.form = this.buildForm();
   }
@@ -63,9 +65,14 @@ export class RegisterPage {
     this.router.navigate(['/verify'], { queryParams: { email } });
   }
 
-  private onError(): void {
+  private async onError(): Promise<void> {
     this.loading = false;
-    // Error genérico — no se expone el detalle técnico al usuario
+    const alert = await this.alertCtrl.create({
+      header: 'Error al registrarse',
+      message: 'No se pudo crear la cuenta. Verifica tus datos e inténtalo de nuevo.',
+      buttons: ['Entendido'],
+    });
+    await alert.present();
   }
 
   goToLogin(): void {

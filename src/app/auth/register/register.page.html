@@ -1,55 +1,65 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Crear cuenta</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="auth-content">
+  <div class="auth-card">
 
-<ion-content class="ion-padding">
+    <!-- Logo -->
+    <div class="auth-logo">
+      <img src="assets/images/logo.png" alt="Logo" />
+    </div>
 
-  <form [formGroup]="form" (ngSubmit)="onRegister()">
+    <h1 class="auth-title">Crear cuenta</h1>
+    <p class="auth-subtitle">Empieza a vender hoy</p>
 
-    <!-- Email -->
-    <ion-item>
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="email" formControlName="email" autocomplete="email" />
-    </ion-item>
-    <ion-note color="danger" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
-      Email inválido
-    </ion-note>
+    <form [formGroup]="form" (ngSubmit)="onRegister()" class="auth-form">
 
-    <!-- Contraseña -->
-    <ion-item>
-      <ion-label position="floating">Contraseña</ion-label>
-      <ion-input type="password" formControlName="password" autocomplete="new-password" />
-    </ion-item>
-    <ion-note color="danger" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
-      Mínimo 8 caracteres
-    </ion-note>
+      <ion-input
+        fill="outline"
+        label="Email"
+        label-placement="floating"
+        type="email"
+        formControlName="email"
+        autocomplete="email"
+        class="auth-input"
+      />
+      <p class="field-error" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+        Introduce un email válido
+      </p>
 
-    <!-- Confirmar contraseña -->
-    <ion-item>
-      <ion-label position="floating">Confirmar contraseña</ion-label>
-      <ion-input type="password" formControlName="confirmPassword" autocomplete="new-password" />
-    </ion-item>
-    <ion-note color="danger" *ngIf="form.errors?.['passwordsMismatch'] && form.get('confirmPassword')?.touched">
-      Las contraseñas no coinciden
-    </ion-note>
+      <ion-input
+        fill="outline"
+        label="Contraseña"
+        label-placement="floating"
+        type="password"
+        formControlName="password"
+        autocomplete="new-password"
+        class="auth-input"
+      />
+      <p class="field-error" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+        Mínimo 8 caracteres
+      </p>
 
-    <!-- Error -->
-    <ion-text color="danger" *ngIf="loading === false && form.touched && form.invalid" class="feedback">
-    </ion-text>
+      <ion-input
+        fill="outline"
+        label="Confirmar contraseña"
+        label-placement="floating"
+        type="password"
+        formControlName="confirmPassword"
+        autocomplete="new-password"
+        class="auth-input"
+      />
+      <p class="field-error" *ngIf="form.errors?.['passwordsMismatch'] && form.get('confirmPassword')?.touched">
+        Las contraseñas no coinciden
+      </p>
 
-    <!-- Botón -->
-    <ion-button expand="block" type="submit" [disabled]="form.invalid || loading" class="ion-margin-top">
-      <ion-spinner *ngIf="loading" name="crescent" />
-      <span *ngIf="!loading">Registrarse</span>
+      <ion-button expand="block" type="submit" [disabled]="form.invalid || loading" class="auth-btn">
+        <ion-spinner *ngIf="loading" name="crescent" />
+        <span *ngIf="!loading">Registrarse</span>
+      </ion-button>
+
+    </form>
+
+    <ion-button fill="clear" expand="block" (click)="goToLogin()" class="auth-link">
+      ¿Ya tienes cuenta? <strong>&nbsp;Inicia sesión</strong>
     </ion-button>
 
-  </form>
-
-  <!-- Ir al login -->
-  <ion-button fill="clear" expand="block" (click)="goToLogin()">
-    ¿Ya tienes cuenta? Inicia sesión
-  </ion-button>
-
+  </div>
 </ion-content>

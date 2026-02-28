@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 import { AuthService } from '../../core/services/auth.service';
 
@@ -13,12 +14,12 @@ import { AuthService } from '../../core/services/auth.service';
 export class LoginPage {
   form: FormGroup;
   loading = false;
-  errorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private alertCtrl: AlertController,
   ) {
     this.form = this.buildForm();
   }
@@ -36,7 +37,6 @@ export class LoginPage {
     if (this.form.invalid || this.loading) return;
 
     this.loading      = true;
-    this.errorMessage = null;
 
     const { email, password } = this.form.value;
 
@@ -51,10 +51,14 @@ export class LoginPage {
     this.router.navigate(['/home'], { replaceUrl: true });
   }
 
-  private onError(): void {
-    this.loading      = false;
-    // Mensaje genérico — no revela si el email existe o la contraseña es incorrecta
-    this.errorMessage = 'Email o contraseña incorrectos.';
+  private async onError(): Promise<void> {
+    this.loading = false;
+    const alert = await this.alertCtrl.create({
+      header: 'Acceso denegado',
+      message: 'Email o contraseña incorrectos.',
+      buttons: ['Entendido'],
+    });
+    await alert.present();
   }
 
   goToRegister(): void {

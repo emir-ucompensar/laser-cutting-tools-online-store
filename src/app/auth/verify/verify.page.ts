@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 import { AuthService } from '../../core/services/auth.service';
 
@@ -14,13 +15,13 @@ export class VerifyPage implements OnInit {
   form: FormGroup;
   loading  = false;
   email    = '';
-  errorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private alertCtrl: AlertController,
   ) {
     this.form = this.fb.group({
       token: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(8)]]
@@ -40,7 +41,6 @@ export class VerifyPage implements OnInit {
     if (this.form.invalid || this.loading) return;
 
     this.loading      = true;
-    this.errorMessage = null;
 
     const { token } = this.form.value;
 
@@ -55,10 +55,16 @@ export class VerifyPage implements OnInit {
     this.router.navigate(['/home'], { replaceUrl: true });
   }
 
-  private onError(detail: string | null): void {
-    this.loading      = false;
-    this.errorMessage = detail === 'Token has expired or is invalid'
+  private async onError(detail: string | null): Promise<void> {
+    this.loading = false;
+    const message = detail === 'Token has expired or is invalid'
       ? 'El código es incorrecto o ha expirado.'
       : 'No se pudo verificar el código. Inténtalo de nuevo.';
+    const alert = await this.alertCtrl.create({
+      header: 'Verificación fallida',
+      message,
+      buttons: ['Entendido'],
+    });
+    await alert.present();
   }
 }

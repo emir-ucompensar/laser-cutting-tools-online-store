@@ -1,42 +1,44 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/register" />
-    </ion-buttons>
-    <ion-title>Verificar email</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="auth-content">
+  <div class="auth-card">
 
-<ion-content class="ion-padding">
+    <!-- Logo -->
+    <div class="auth-logo">
+      <img src="assets/images/logo.png" alt="Logo" />
+    </div>
 
-  <p class="subtitle">
-    Ingresa el código de 8 dígitos que enviamos a <strong>{{ email }}</strong>
-  </p>
+    <h1 class="auth-title">Verifica tu email</h1>
+    <p class="auth-subtitle">
+      Ingresa el código de 8 dígitos enviado a<br />
+      <strong class="email-highlight">{{ email }}</strong>
+    </p>
 
-  <form [formGroup]="form" (ngSubmit)="onVerify()">
+    <form [formGroup]="form" (ngSubmit)="onVerify()" class="auth-form">
 
-    <ion-item>
-      <ion-label position="floating">Código</ion-label>
       <ion-input
+        fill="outline"
+        label="Código de verificación"
+        label-placement="floating"
         type="text"
         formControlName="token"
         inputmode="numeric"
         maxlength="8"
-        autocomplete="one-time-code" />
-    </ion-item>
-    <ion-note color="danger" *ngIf="form.get('token')?.invalid && form.get('token')?.touched">
-      Introduce el código recibido por email
-    </ion-note>
+        autocomplete="one-time-code"
+        class="auth-input"
+      />
+      <p class="field-error" *ngIf="form.get('token')?.invalid && form.get('token')?.touched">
+        Introduce el código recibido por email
+      </p>
 
-    <ion-text color="danger" *ngIf="errorMessage" class="error-msg">
-      <p>{{ errorMessage }}</p>
-    </ion-text>
+      <ion-button expand="block" type="submit" [disabled]="form.invalid || loading" class="auth-btn">
+        <ion-spinner *ngIf="loading" name="crescent" />
+        <span *ngIf="!loading">Confirmar</span>
+      </ion-button>
 
-    <ion-button expand="block" type="submit" [disabled]="form.invalid || loading" class="ion-margin-top">
-      <ion-spinner *ngIf="loading" name="crescent" />
-      <span *ngIf="!loading">Confirmar</span>
+    </form>
+
+    <ion-button fill="clear" expand="block" routerLink="/register" class="auth-link">
+      ← Volver al registro
     </ion-button>
 
-  </form>
-
+  </div>
 </ion-content>
