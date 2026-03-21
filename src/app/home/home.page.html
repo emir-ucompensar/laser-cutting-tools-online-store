@@ -15,6 +15,10 @@
       <ion-icon name="log-out-outline" />
       <span>Cerrar sesión</span>
     </button>
+    <button class="web-navbar__btn web-navbar__btn--ghost" (click)="openProfile()">
+      <ion-icon name="person-circle-outline" />
+      <span>Perfil</span>
+    </button>
   </div>
 </header>
 
@@ -65,6 +69,10 @@
 <ion-footer *ngIf="!isWeb">
   <ion-toolbar class="bottom-nav">
     <ion-buttons slot="start">
+      <ion-button (click)="openProfile()" class="bottom-nav__btn bottom-nav__btn--ghost">
+        <ion-icon name="person-circle-outline" slot="start" />
+        Perfil
+      </ion-button>
       <ion-button (click)="goToAddProduct()" class="bottom-nav__btn">
         <ion-icon name="add-outline" slot="start" />
         Añadir
@@ -78,3 +86,39 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>
+
+<!-- ============================================================
+  MODAL LATERAL DE PERFIL
+============================================================ -->
+<ion-modal
+  [isOpen]="profileOpen"
+  (didDismiss)="closeProfile()"
+  cssClass="profile-side-modal"
+  [backdropDismiss]="true"
+  [enterAnimation]="profileEnterAnimation"
+  [leaveAnimation]="profileLeaveAnimation"
+>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Mi perfil</ion-title>
+        <ion-buttons slot="end">
+          <ion-button fill="clear" (click)="closeProfile()">
+            <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="profile-sheet">
+      <div class="profile-sheet__section">
+        <span class="profile-sheet__label">Correo</span>
+        <p class="profile-sheet__email">{{ userEmail }}</p>
+      </div>
+
+      <button class="profile-sheet__danger" (click)="onDeleteAccountClick()">
+        Eliminar cuenta
+      </button>
+    </ion-content>
+  </ng-template>
+</ion-modal>

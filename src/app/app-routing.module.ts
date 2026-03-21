@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
+import { guestGuard } from './core/guards/guest.guard';
 
 const routes: Routes = [
   {
@@ -10,15 +11,18 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./auth/login/login.module').then(m => m.LoginPageModule)
+    loadChildren: () => import('./auth/login/login.module').then(m => m.LoginPageModule),
+    canActivate: [guestGuard]
   },
   {
     path: 'register',
-    loadChildren: () => import('./auth/register/register.module').then(m => m.RegisterPageModule)
+    loadChildren: () => import('./auth/register/register.module').then(m => m.RegisterPageModule),
+    canActivate: [guestGuard]
   },
   {
     path: 'verify',
-    loadChildren: () => import('./auth/verify/verify.module').then(m => m.VerifyPageModule)
+    loadChildren: () => import('./auth/verify/verify.module').then(m => m.VerifyPageModule),
+    canActivate: [guestGuard]
   },
   {
     path: 'add-product',

@@ -24,6 +24,14 @@ export class LoginPage {
     this.form = this.buildForm();
   }
 
+  ionViewWillEnter(): void {
+    this.auth.getSession().subscribe((session) => {
+      if (session) {
+        this.router.navigate(['/home'], { replaceUrl: true });
+      }
+    });
+  }
+
   /** Construye el formulario con sus validaciones */
   private buildForm(): FormGroup {
     return this.fb.group({
