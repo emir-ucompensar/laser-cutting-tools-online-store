@@ -1,0 +1,20 @@
+<header class="web-navbar">
+  <div class="web-navbar__logo">
+    <img src="assets/images/logo.png" alt="Logo" />
+  </div>
+  <span class="web-navbar__brand">Laser Cutting Tools</span>
+  <div class="web-navbar__actions">
+    <button class="web-navbar__btn" (click)="addProduct.emit()">
+      <ion-icon name="add-outline"></ion-icon>
+      <span>Añadir producto</span>
+    </button>
+    <button class="web-navbar__btn web-navbar__btn--ghost" (click)="logout.emit()">
+      <ion-icon name="log-out-outline"></ion-icon>
+      <span>Cerrar sesión</span>
+    </button>
+    <button class="web-navbar__btn web-navbar__btn--ghost" (click)="openProfile.emit()">
+      <ion-icon name="person-circle-outline"></ion-icon>
+      <span>Perfil</span>
+    </button>
+  </div>
+</header>

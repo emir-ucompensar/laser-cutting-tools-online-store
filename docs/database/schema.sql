@@ -38,6 +38,33 @@ CREATE POLICY "Allow delete own products" ON public.products
   FOR DELETE USING (auth.uid() = created_by);
 
 -- ============================================================================
+-- RPC: account self-deletion
+-- ============================================================================
+
+CREATE OR REPLACE FUNCTION public.delete_my_account()
+RETURNS void
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, auth
+AS $$
+DECLARE
+  v_user_id uuid;
+BEGIN
+  v_user_id := auth.uid();
+
+  IF v_user_id IS NULL THEN
+    RAISE EXCEPTION 'Not authenticated';
+  END IF;
+
+  DELETE FROM auth.users
+  WHERE id = v_user_id;
+END;
+$$;
+
+REVOKE ALL ON FUNCTION public.delete_my_account() FROM public;
+GRANT EXECUTE ON FUNCTION public.delete_my_account() TO authenticated;
+
+-- ============================================================================
 -- Note: auth.users is managed by Supabase. It already exists and cannot be
 -- created manually. The schema above is for reference only.
 -- ============================================================================

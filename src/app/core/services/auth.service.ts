@@ -45,6 +45,23 @@ export class AuthService {
     return from(promise);
   }
 
+  /** Elimina la cuenta autenticada y limpia la sesión local */
+  deleteAccount(): Observable<{ error: string | null }> {
+    const promise = this.supabaseService.supabase
+      .rpc('delete_my_account')
+      .then(async ({ error }) => {
+        if (error) {
+          return { error: error.message };
+        }
+
+        // Tras borrar en backend, limpiar tokens locales para evitar estado fantasma.
+        await this.supabaseService.supabase.auth.signOut();
+        return { error: null };
+      });
+
+    return from(promise);
+  }
+
   /** Verifica el código OTP recibido por email tras el registro */
   verifyOtp(email: string, token: string): Observable<AuthResult> {
     const promise = this.supabaseService.supabase.auth

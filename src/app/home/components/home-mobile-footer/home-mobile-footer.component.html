@@ -1,0 +1,20 @@
+<ion-footer>
+  <ion-toolbar class="bottom-nav">
+    <ion-buttons slot="start">
+      <ion-button (click)="openProfile.emit()" class="bottom-nav__btn bottom-nav__btn--ghost">
+        <ion-icon name="person-circle-outline" slot="start"></ion-icon>
+        Perfil
+      </ion-button>
+      <ion-button (click)="addProduct.emit()" class="bottom-nav__btn">
+        <ion-icon name="add-outline" slot="start"></ion-icon>
+        Añadir
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout.emit()" class="bottom-nav__btn bottom-nav__btn--ghost">
+        <ion-icon name="log-out-outline" slot="start"></ion-icon>
+        Salir
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

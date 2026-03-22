@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, Animation, Platform, createAnimation } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 import { AuthService } from '../core/services/auth.service';
 import { ProductService } from '../core/services/product.service';
 import { Product } from '../core/models/product.models';
@@ -16,32 +16,6 @@ export class HomePage {
   loading = false;
   profileOpen = false;
   userEmail = '';
-
-  readonly profileEnterAnimation = (baseEl: HTMLElement): Animation => {
-    const root = baseEl.shadowRoot;
-    const backdrop = root?.querySelector('ion-backdrop');
-    const wrapper = root?.querySelector('.modal-wrapper');
-
-    const backdropAnimation = createAnimation()
-      .addElement(backdrop as HTMLElement)
-      .fromTo('opacity', '0.01', 'var(--backdrop-opacity)');
-
-    const wrapperAnimation = createAnimation()
-      .addElement(wrapper as HTMLElement)
-      .keyframes([
-        { offset: 0, opacity: '0.99', transform: 'translateX(100%)' },
-        { offset: 1, opacity: '0.99', transform: 'translateX(0)' },
-      ]);
-
-    return createAnimation()
-      .addElement(baseEl)
-      .easing('cubic-bezier(0.32,0.72,0,1)')
-      .duration(260)
-      .addAnimation([backdropAnimation, wrapperAnimation]);
-  };
-
-  readonly profileLeaveAnimation = (baseEl: HTMLElement): Animation =>
-    this.profileEnterAnimation(baseEl).direction('reverse');
 
   /** True cuando corre en navegador web (no en Capacitor nativo) */
   get isWeb(): boolean {
@@ -100,10 +74,50 @@ export class HomePage {
   async onDeleteAccountClick(): Promise<void> {
     const alert = await this.alertCtrl.create({
       header: 'Eliminar cuenta',
-      message: 'Esta opción estará disponible en una siguiente iteración.',
-      buttons: ['Entendido'],
+      message: 'Esta acción eliminará tu cuenta y no se puede deshacer. ¿Deseas continuar?',
+      buttons: [
+        { text: 'Cancelar', role: 'cancel' },
+        {
+          text: 'Eliminar cuenta',
+          cssClass: 'danger',
+          handler: () => this.deleteAccount(),
+        },
+      ],
     });
     await alert.present();
+  }
+
+  private deleteAccount(): void {
+    this.auth.deleteAccount().subscribe({
+      next: async ({ error }) => {
+        if (error) {
+          const errorAlert = await this.alertCtrl.create({
+            header: 'No se pudo eliminar la cuenta',
+            message: 'Verifica que la función SQL delete_my_account esté creada en Supabase.',
+            buttons: ['Entendido'],
+          });
+          await errorAlert.present();
+          return;
+        }
+
+        this.closeProfile();
+        const successAlert = await this.alertCtrl.create({
+          header: 'Cuenta eliminada',
+          message: 'Tu cuenta fue eliminada correctamente.',
+          buttons: ['Aceptar'],
+        });
+        await successAlert.present();
+        this.router.navigate(['/login'], { replaceUrl: true });
+      },
+      error: async () => {
+        const errorAlert = await this.alertCtrl.create({
+          header: 'No se pudo eliminar la cuenta',
+          message: 'Inténtalo de nuevo en unos segundos.',
+          buttons: ['Entendido'],
+        });
+        await errorAlert.present();
+      },
+    });
   }
 
   async confirmDelete(product: Product): Promise<void> {
@@ -118,6 +132,15 @@ export class HomePage {
           handler: () => this.deleteProduct(product.id),
         },
       ],
+    });
+    await alert.present();
+  }
+
+  async onAddToCartClick(product: Product): Promise<void> {
+    const alert = await this.alertCtrl.create({
+      header: 'Carrito de compras',
+      message: `"${product.name}" se agregará al carrito en la siguiente implementación.`,
+      buttons: ['Entendido'],
     });
     await alert.present();
   }

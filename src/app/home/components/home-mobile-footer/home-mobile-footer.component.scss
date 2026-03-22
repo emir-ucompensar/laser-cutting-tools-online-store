@@ -1,0 +1,32 @@
+ion-footer .bottom-nav {
+  --background: var(--color-overlay);
+  --border-color: var(--color-border);
+  --padding-start: var(--app-spacing-sm);
+  --padding-end: var(--app-spacing-sm);
+}
+
+.bottom-nav__btn {
+  --color: var(--color-fg);
+  --color-activated: var(--color-fg);
+  --border-width: 1px;
+  --border-style: solid;
+  --border-color: var(--color-border);
+  --border-radius: 0;
+  --background: transparent;
+  --background-activated: var(--color-subtle);
+  --background-hover: var(--color-subtle);
+  --padding-start: var(--app-spacing-sm);
+  --padding-end: var(--app-spacing-sm);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  margin: 0 var(--app-spacing-xs);
+  height: 34px;
+
+  ion-icon {
+    font-size: 16px;
+  }
+
+  &--ghost {
+    --color: var(--color-fg-muted);
+  }
+}
