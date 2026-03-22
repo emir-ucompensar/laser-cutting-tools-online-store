@@ -9,6 +9,10 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "test:ci": "ng test --watch=false --browsers=ChromeHeadlessNoSandbox",
+    "test:status": "KARMA_SPEC_REPORTER=true ng test --watch=false --browsers=ChromeHeadlessNoSandbox",
+    "test:status:clean": "bash -o pipefail -c 'KARMA_SPEC_REPORTER=true ng test --watch=false --browsers=ChromeHeadlessNoSandbox 2>&1 | sed -r \"s/\\x1B\\[[0-9;]*[mK]//g\" | grep -E \"✓|✗|^TOTAL:\"'",
+    "test:coverage": "ng test --watch=false --browsers=ChromeHeadlessNoSandbox --code-coverage",
     "lint": "ng lint"
   },
   "private": true,
@@ -62,6 +66,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "karma-spec-reporter": "^0.0.36",
     "typescript": "~5.9.0"
   },
   "description": "An Ionic project"

@@ -2,6 +2,8 @@
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
 module.exports = function (config) {
+  const useSpecReporter = process.env.KARMA_SPEC_REPORTER === 'true';
+
   config.set({
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
@@ -9,6 +11,7 @@ module.exports = function (config) {
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
+      require('karma-spec-reporter'),
       require('karma-coverage'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
@@ -24,6 +27,14 @@ module.exports = function (config) {
     jasmineHtmlReporter: {
       suppressAll: true // removes the duplicated traces
     },
+    specReporter: {
+      suppressErrorSummary: false,
+      suppressFailed: false,
+      suppressPassed: false,
+      suppressSkipped: true,
+      suppressPending: true,
+      showSpecTiming: false,
+    },
     coverageReporter: {
       dir: require('path').join(__dirname, './coverage/app'),
       subdir: '.',
@@ -32,12 +43,18 @@ module.exports = function (config) {
         { type: 'text-summary' }
       ]
     },
-    reporters: ['progress', 'kjhtml'],
+    reporters: useSpecReporter ? ['spec'] : ['progress', 'kjhtml'],
+    customLaunchers: {
+      ChromeHeadlessNoSandbox: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage']
+      }
+    },
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
+    browsers: ['ChromeHeadlessNoSandbox'],
     singleRun: false,
     restartOnFileChange: true
   });
