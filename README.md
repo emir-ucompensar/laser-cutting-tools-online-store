@@ -1,8 +1,12 @@
 # Laser Cutting Tools Online Store
 
-Academic project developed for the Fundación Universitaria de Compensar. A hybrid mobile and web store application for browsing and managing laser cutting tool products. Users register and authenticate via email OTP, can add products with photos, and browse the catalog on both Android and web.
+Academic project developed for Fundación Universitaria Compensar. This repository contains a hybrid mobile and web store application for managing laser cutting tool products.
 
-## Technologies
+## Overview
+
+The application supports email OTP authentication, product catalog management, photo upload for products, shopping cart operations, and responsive behavior across Android and web.
+
+## Technology Stack
 
 - Angular 20
 - Ionic 8
@@ -11,30 +15,53 @@ Academic project developed for the Fundación Universitaria de Compensar. A hybr
 - TypeScript 5.9
 - pnpm
 
-## Build
+## Prerequisites
 
-Requires Linux or WSL2 with Node.js, pnpm, and the Android SDK available in PATH.
+Linux or WSL2 environment with Node.js, pnpm, and Android SDK tools available in PATH.
 
-Install dependencies:
+## Installation
 
-```
+```bash
 pnpm install
 ```
 
-Then run the build pipeline, which compiles the Angular app, syncs with Capacitor, and builds the Android APK:
+## Build
 
-```
+Run the build pipeline to compile the Angular app, sync Capacitor, and generate the Android APK.
+
+```bash
 bash scripts/compile.sh
 ```
 
-At the end of the build the script will offer to start a local web preview server.
+The script can also offer a local web preview at the end of the process.
 
-## Loading to the emulator
+## Emulator Sideload
 
-With the Android emulator already running, the following script handles the full sideload process interactively:
+With an Android emulator running, use:
 
-```
+```bash
 bash scripts/sideload.sh
+```
+
+## Testing
+
+Run automated tests using the following commands:
+
+```bash
+# Interactive mode
+pnpm test
+
+# CI mode (headless)
+pnpm run test:ci
+
+# Verbose status output per test
+pnpm run test:status
+
+# Pass/fail-only output
+pnpm run test:status:clean
+
+# Coverage report
+pnpm run test:coverage
 ```
 
 ## License
