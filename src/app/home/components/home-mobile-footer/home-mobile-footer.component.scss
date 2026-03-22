@@ -42,4 +42,14 @@ ion-footer .bottom-nav {
 ion-button.bottom-nav__btn--danger {
   --color: var(--color-danger) !important;
   --color-activated: var(--color-danger) !important;
+
+  &::part(native) {
+    color: var(--color-danger) !important;
+  }
+
+  ion-icon,
+  span,
+  .button-inner {
+    color: var(--color-danger) !important;
+  }
 }
