@@ -193,8 +193,25 @@ export class HomePage {
     }
 
     this.cartService.addProduct(product.id, this.userId).subscribe({
-      next: () => {
+      next: async () => {
         this.loadCart();
+
+        const alert = await this.alertCtrl.create({
+          header: 'Carrito actualizado',
+          message: 'Producto añadido exitosamente al carrito.',
+          buttons: [
+            {
+              text: 'Seguir comprando',
+              role: 'cancel',
+            },
+            {
+              text: 'Ver mi carrito',
+              handler: () => this.openCart(),
+            },
+          ],
+        });
+
+        await alert.present();
       },
       error: async () => {
         const alert = await this.alertCtrl.create({

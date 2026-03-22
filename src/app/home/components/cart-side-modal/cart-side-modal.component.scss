@@ -56,6 +56,7 @@ ion-modal.cart-side-modal::part(content) {
 }
 
 .cart-item {
+  position: relative;
   display: flex;
   gap: var(--app-spacing-sm);
   background: var(--color-overlay);
@@ -64,6 +65,8 @@ ion-modal.cart-side-modal::part(content) {
   &__image {
     width: 72px;
     height: 72px;
+    background: var(--color-subtle);
+    border: 1px solid var(--color-border);
     object-fit: cover;
     flex-shrink: 0;
   }
@@ -73,6 +76,7 @@ ion-modal.cart-side-modal::part(content) {
     display: flex;
     flex-direction: column;
     gap: 2px;
+    padding-right: 96px;
   }
 
   &__type {
@@ -95,7 +99,10 @@ ion-modal.cart-side-modal::part(content) {
   }
 
   &__controls {
-    margin-top: var(--app-spacing-xs);
+    position: absolute;
+    right: var(--app-spacing-sm);
+    top: 50%;
+    transform: translateY(-50%);
     display: inline-flex;
     align-items: center;
     gap: var(--app-spacing-xs);
@@ -126,6 +133,7 @@ ion-modal.cart-side-modal::part(content) {
   --border-width: 1px 0 0 0;
   --padding-start: var(--app-spacing-md);
   --padding-end: var(--app-spacing-md);
+  --padding-bottom: calc(var(--app-spacing-sm) + env(safe-area-inset-bottom));
 }
 
 .cart-total {
@@ -150,6 +158,7 @@ ion-modal.cart-side-modal::part(content) {
 .cart-checkout-btn {
   width: 100%;
   height: 36px;
+  margin-bottom: var(--app-spacing-sm);
   border: 1px solid var(--color-border);
   background: var(--color-primary);
   color: #ffffff;
