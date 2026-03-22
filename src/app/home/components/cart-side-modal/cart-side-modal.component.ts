@@ -21,6 +21,7 @@ export class CartSideModalComponent {
   @Output() checkout = new EventEmitter<void>();
 
   onCloseClick(event: Event): void {
+    event.preventDefault();
     event.stopPropagation();
     this.closeModal.emit();
   }

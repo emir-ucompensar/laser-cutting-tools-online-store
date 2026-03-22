@@ -14,6 +14,7 @@ export class ProfileSideModalComponent {
   @Output() deleteAccount = new EventEmitter<void>();
 
   onCloseClick(event: Event): void {
+    event.preventDefault();
     event.stopPropagation();
     this.closeModal.emit();
   }

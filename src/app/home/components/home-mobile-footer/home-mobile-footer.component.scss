@@ -29,4 +29,17 @@ ion-footer .bottom-nav {
   &--ghost {
     --color: var(--color-fg-muted);
   }
+
+  &--danger {
+    --color: var(--color-danger) !important;
+    --color-activated: var(--color-danger) !important;
+    --border-color: var(--color-danger) !important;
+    --background-hover: rgba(248, 81, 73, 0.12);
+    --background-activated: rgba(248, 81, 73, 0.12);
+  }
+}
+
+ion-button.bottom-nav__btn--danger {
+  --color: var(--color-danger) !important;
+  --color-activated: var(--color-danger) !important;
 }

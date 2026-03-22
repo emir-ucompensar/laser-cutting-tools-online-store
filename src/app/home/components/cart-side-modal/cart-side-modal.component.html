@@ -10,11 +10,16 @@
     <ion-header>
       <ion-toolbar>
         <ion-title>Carrito</ion-title>
-        <ion-buttons slot="end">
-          <ion-button fill="clear" class="cart-close-btn" (click)="onCloseClick($event)">
-            <ion-icon name="close-outline" slot="icon-only"></ion-icon>
-          </ion-button>
-        </ion-buttons>
+        <button
+          type="button"
+          class="cart-close-btn"
+          slot="end"
+          aria-label="Cerrar"
+          (click)="onCloseClick($event)"
+          (pointerup)="onCloseClick($event)"
+        >
+          <span class="cart-close-btn__glyph" aria-hidden="true">×</span>
+        </button>
       </ion-toolbar>
     </ion-header>
 

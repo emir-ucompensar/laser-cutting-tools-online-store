@@ -1,5 +1,5 @@
 ion-modal.cart-side-modal {
-  --width: min(420px, 100%);
+  --width: min(340px, 100%);
   --height: calc(100% - 56px);
   --border-radius: 0;
   --box-shadow: none;
@@ -14,11 +14,30 @@ ion-modal.cart-side-modal::part(content) {
 }
 
 .cart-close-btn {
-  --color: var(--color-fg-muted);
-  --background: transparent;
-  --background-hover: var(--color-subtle);
-  --background-activated: var(--color-subtle);
-  --border-radius: 0;
+  width: 44px;
+  height: 44px;
+  margin-right: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 3;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--color-fg-muted);
+  cursor: pointer;
+
+  &__glyph {
+    font-size: 26px;
+    line-height: 1;
+    transform: translateY(-1px);
+  }
+
+  &:hover,
+  &:active {
+    background: var(--color-subtle);
+    border-color: var(--color-border);
+  }
 }
 
 .cart-sheet {
