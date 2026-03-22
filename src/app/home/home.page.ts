@@ -4,6 +4,8 @@ import { AlertController, Platform } from '@ionic/angular';
 import { AuthService } from '../core/services/auth.service';
 import { ProductService } from '../core/services/product.service';
 import { Product } from '../core/models/product.models';
+import { CartService } from '../core/services/cart.service';
+import { CartItem } from '../core/models/cart.models';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +17,11 @@ export class HomePage {
   products: Product[] = [];
   loading = false;
   profileOpen = false;
+  cartOpen = false;
+  cartLoading = false;
   userEmail = '';
+  userId = '';
+  cartItems: CartItem[] = [];
 
   /** True cuando corre en navegador web (no en Capacitor nativo) */
   get isWeb(): boolean {
@@ -25,6 +31,7 @@ export class HomePage {
   constructor(
     private auth: AuthService,
     private productService: ProductService,
+    private cartService: CartService,
     private router: Router,
     private platform: Platform,
     private alertCtrl: AlertController,
@@ -33,17 +40,27 @@ export class HomePage {
   ionViewWillEnter(): void {
     this.loadUserData();
     this.loadProducts();
+    this.loadCart();
   }
 
   private loadUserData(): void {
     this.auth.getSession().subscribe({
       next: (session) => {
         this.userEmail = session?.user?.email ?? 'Sin correo disponible';
+        this.userId = session?.user?.id ?? '';
       },
       error: () => {
         this.userEmail = 'Sin correo disponible';
+        this.userId = '';
       },
     });
+  }
+
+  get cartTotal(): number {
+    return this.cartItems.reduce((acc, item) => {
+      const unit = Number(item.products?.price ?? 0);
+      return acc + unit * item.quantity;
+    }, 0);
   }
 
   private loadProducts(): void {
@@ -59,6 +76,11 @@ export class HomePage {
     });
   }
 
+  onHardReload(): void {
+    this.loadProducts();
+    this.loadCart();
+  }
+
   goToAddProduct(): void {
     this.router.navigate(['/add-product']);
   }
@@ -69,6 +91,29 @@ export class HomePage {
 
   closeProfile(): void {
     this.profileOpen = false;
+  }
+
+  openCart(): void {
+    this.cartOpen = true;
+    this.loadCart();
+  }
+
+  closeCart(): void {
+    this.cartOpen = false;
+  }
+
+  private loadCart(): void {
+    this.cartLoading = true;
+    this.cartService.getCartItems().subscribe({
+      next: (items) => {
+        this.cartItems = items;
+        this.cartLoading = false;
+      },
+      error: () => {
+        this.cartItems = [];
+        this.cartLoading = false;
+      },
+    });
   }
 
   async onDeleteAccountClick(): Promise<void> {
@@ -137,9 +182,54 @@ export class HomePage {
   }
 
   async onAddToCartClick(product: Product): Promise<void> {
+    if (!this.userId) {
+      const alert = await this.alertCtrl.create({
+        header: 'Sesión requerida',
+        message: 'Debes iniciar sesión para usar el carrito.',
+        buttons: ['Entendido'],
+      });
+      await alert.present();
+      return;
+    }
+
+    this.cartService.addProduct(product.id, this.userId).subscribe({
+      next: () => {
+        this.loadCart();
+      },
+      error: async () => {
+        const alert = await this.alertCtrl.create({
+          header: 'No se pudo añadir al carrito',
+          message: 'Verifica que el schema del carrito esté creado en Supabase.',
+          buttons: ['Entendido'],
+        });
+        await alert.present();
+      },
+    });
+  }
+
+  increaseItem(item: CartItem): void {
+    this.cartService.updateQuantity(item.id, item.quantity + 1).subscribe({
+      next: () => this.loadCart(),
+    });
+  }
+
+  decreaseItem(item: CartItem): void {
+    if (item.quantity <= 1) {
+      this.cartService.removeItem(item.id).subscribe({
+        next: () => this.loadCart(),
+      });
+      return;
+    }
+
+    this.cartService.updateQuantity(item.id, item.quantity - 1).subscribe({
+      next: () => this.loadCart(),
+    });
+  }
+
+  async finalizeCheckout(): Promise<void> {
     const alert = await this.alertCtrl.create({
-      header: 'Carrito de compras',
-      message: `"${product.name}" se agregará al carrito en la siguiente implementación.`,
+      header: 'Finalizar compra',
+      message: 'Esta acción estará disponible en la siguiente iteración.',
       buttons: ['Entendido'],
     });
     await alert.present();
@@ -155,6 +245,7 @@ export class HomePage {
 
   logout(): void {
     this.closeProfile();
+    this.closeCart();
     this.auth.logout().subscribe({
       next: () => this.router.navigate(['/login'], { replaceUrl: true }),
     });

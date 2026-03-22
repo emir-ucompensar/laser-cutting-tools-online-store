@@ -7,6 +7,7 @@ import { HomeWebNavbarComponent } from './components/home-web-navbar/home-web-na
 import { HomeMobileFooterComponent } from './components/home-mobile-footer/home-mobile-footer.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProfileSideModalComponent } from './components/profile-side-modal/profile-side-modal.component';
+import { CartSideModalComponent } from './components/cart-side-modal/cart-side-modal.component';
 
 import { HomePageRoutingModule } from './home-routing.module';
 
@@ -24,6 +25,7 @@ import { HomePageRoutingModule } from './home-routing.module';
     HomeMobileFooterComponent,
     ProductCardComponent,
     ProfileSideModalComponent,
+    CartSideModalComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

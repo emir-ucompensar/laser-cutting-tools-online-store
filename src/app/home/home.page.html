@@ -1,6 +1,8 @@
 <app-home-web-navbar
   *ngIf="isWeb"
+  (openCart)="openCart()"
   (addProduct)="goToAddProduct()"
+  (refreshList)="onHardReload()"
   (logout)="logout()"
   (openProfile)="openProfile()"
 ></app-home-web-navbar>
@@ -10,7 +12,16 @@
 ============================================================ -->
 <ion-header *ngIf="!isWeb">
   <ion-toolbar>
-    <ion-title>Laser Cutting Tools</ion-title>
+    <div class="mobile-brand" slot="start">
+      <img src="assets/images/logo.png" alt="Logo" />
+      <span>Laser Cutting Tools</span>
+    </div>
+    <ion-buttons slot="end">
+      <ion-button class="mobile-refresh-btn" fill="clear" (click)="onHardReload()" aria-label="Actualizar productos">
+        <ion-icon name="refresh-outline" slot="start"></ion-icon>
+        Actualizar
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -44,6 +55,7 @@
 ============================================================ -->
 <app-home-mobile-footer
   *ngIf="!isWeb"
+  (openCart)="openCart()"
   (openProfile)="openProfile()"
   (addProduct)="goToAddProduct()"
   (logout)="logout()"
@@ -55,6 +67,17 @@
 <app-profile-side-modal
   [isOpen]="profileOpen"
   [userEmail]="userEmail"
-  (close)="closeProfile()"
+  (closeModal)="closeProfile()"
   (deleteAccount)="onDeleteAccountClick()"
 ></app-profile-side-modal>
+
+<app-cart-side-modal
+  [isOpen]="cartOpen"
+  [items]="cartItems"
+  [total]="cartTotal"
+  [loading]="cartLoading"
+  (closeModal)="closeCart()"
+  (increase)="increaseItem($event)"
+  (decrease)="decreaseItem($event)"
+  (checkout)="finalizeCheckout()"
+></app-cart-side-modal>

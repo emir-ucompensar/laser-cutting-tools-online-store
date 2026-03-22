@@ -5,6 +5,10 @@
         <ion-icon name="person-circle-outline" slot="start"></ion-icon>
         Perfil
       </ion-button>
+      <ion-button (click)="openCart.emit()" class="bottom-nav__btn bottom-nav__btn--ghost">
+        <ion-icon name="cart-outline" slot="start"></ion-icon>
+        Carrito
+      </ion-button>
       <ion-button (click)="addProduct.emit()" class="bottom-nav__btn">
         <ion-icon name="add-outline" slot="start"></ion-icon>
         Añadir

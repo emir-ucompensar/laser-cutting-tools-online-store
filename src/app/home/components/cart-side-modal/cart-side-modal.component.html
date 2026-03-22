@@ -1,0 +1,60 @@
+<ion-modal
+  [isOpen]="isOpen"
+  (didDismiss)="closeModal.emit()"
+  cssClass="cart-side-modal"
+  [backdropDismiss]="true"
+  [enterAnimation]="enterAnimation"
+  [leaveAnimation]="leaveAnimation"
+>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Carrito</ion-title>
+        <ion-buttons slot="end">
+          <ion-button fill="clear" class="cart-close-btn" (click)="onCloseClick($event)">
+            <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="cart-sheet">
+      <ion-spinner *ngIf="loading" name="crescent" class="cart-sheet__spinner"></ion-spinner>
+
+      <div *ngIf="!loading && items.length === 0" class="cart-empty">
+        <ion-icon name="cart-outline"></ion-icon>
+        <p>Tu carrito está vacío.</p>
+      </div>
+
+      <div *ngIf="!loading && items.length > 0" class="cart-list">
+        <article class="cart-item" *ngFor="let item of items">
+          <img class="cart-item__image" [src]="item.products.image_url" [alt]="item.products.name" />
+
+          <div class="cart-item__content">
+            <span class="cart-item__type">{{ item.products.type }}</span>
+            <h4 class="cart-item__name">{{ item.products.name }}</h4>
+            <span class="cart-item__price">{{ item.products.price | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
+
+            <div class="cart-item__controls">
+              <button (click)="decrease.emit(item)">-</button>
+              <span>{{ item.quantity }}</span>
+              <button (click)="increase.emit(item)">+</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </ion-content>
+
+    <ion-footer>
+      <ion-toolbar class="cart-sheet__footer">
+        <div class="cart-total">
+          <span>Total</span>
+          <strong>{{ total | currency:'COP':'symbol-narrow':'1.0-0' }}</strong>
+        </div>
+        <button class="cart-checkout-btn" [disabled]="items.length === 0" (click)="checkout.emit()">
+          Finalizar compra
+        </button>
+      </ion-toolbar>
+    </ion-footer>
+  </ng-template>
+</ion-modal>

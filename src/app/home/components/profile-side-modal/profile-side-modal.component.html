@@ -1,6 +1,6 @@
 <ion-modal
   [isOpen]="isOpen"
-  (didDismiss)="close.emit()"
+  (didDismiss)="closeModal.emit()"
   cssClass="profile-side-modal"
   [backdropDismiss]="true"
   [enterAnimation]="enterAnimation"
@@ -11,7 +11,7 @@
       <ion-toolbar>
         <ion-title>Mi perfil</ion-title>
         <ion-buttons slot="end">
-          <ion-button fill="clear" (click)="close.emit()">
+          <ion-button fill="clear" class="profile-close-btn" (click)="onCloseClick($event)">
             <ion-icon name="close-outline" slot="icon-only"></ion-icon>
           </ion-button>
         </ion-buttons>

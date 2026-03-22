@@ -1,17 +1,24 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Animation, createAnimation } from '@ionic/angular';
 
+import { CartItem } from '../../../core/models/cart.models';
+
 @Component({
-  selector: 'app-profile-side-modal',
-  templateUrl: './profile-side-modal.component.html',
-  styleUrls: ['./profile-side-modal.component.scss'],
+  selector: 'app-cart-side-modal',
+  templateUrl: './cart-side-modal.component.html',
+  styleUrls: ['./cart-side-modal.component.scss'],
   standalone: false,
 })
-export class ProfileSideModalComponent {
+export class CartSideModalComponent {
   @Input() isOpen = false;
-  @Input() userEmail = '';
+  @Input() items: CartItem[] = [];
+  @Input() total = 0;
+  @Input() loading = false;
+
   @Output() closeModal = new EventEmitter<void>();
-  @Output() deleteAccount = new EventEmitter<void>();
+  @Output() increase = new EventEmitter<CartItem>();
+  @Output() decrease = new EventEmitter<CartItem>();
+  @Output() checkout = new EventEmitter<void>();
 
   onCloseClick(event: Event): void {
     event.stopPropagation();

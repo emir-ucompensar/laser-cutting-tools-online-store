@@ -55,3 +55,12 @@ ion-modal.profile-side-modal::part(content) {
     background: rgba(248, 81, 73, 0.12);
   }
 }
+
+.profile-close-btn {
+  --color: var(--color-fg-muted);
+  --background: transparent;
+  --background-hover: var(--color-subtle);
+  --background-activated: var(--color-subtle);
+  --border-radius: 0;
+  pointer-events: auto;
+}

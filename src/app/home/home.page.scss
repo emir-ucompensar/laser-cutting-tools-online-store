@@ -7,6 +7,56 @@
   color: var(--color-fg-muted);
 }
 
+ion-header ion-button[fill='clear'] {
+  --color: var(--color-fg-muted);
+  --background-hover: var(--color-subtle);
+  --background-activated: var(--color-subtle);
+  --border-radius: 0;
+}
+
+.mobile-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--app-spacing-sm);
+
+  img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    display: block;
+  }
+
+  span {
+    color: var(--color-fg);
+    font-size: 0.96rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    font-family: 'Orbitron', 'Segoe UI', sans-serif;
+    text-transform: uppercase;
+  }
+}
+
+.mobile-refresh-btn {
+  --color: var(--color-fg-muted);
+  --border-width: 1px;
+  --border-style: solid;
+  --border-color: var(--color-border);
+  --background: transparent;
+  --background-hover: var(--color-subtle);
+  --background-activated: var(--color-subtle);
+  --border-radius: 0;
+  --padding-start: 8px;
+  --padding-end: 8px;
+  height: 30px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+
+  ion-icon {
+    font-size: 13px;
+  }
+}
+
 // ============================================================
 // LISTA DE PRODUCTOS — mobile (default): horizontal
 // ============================================================

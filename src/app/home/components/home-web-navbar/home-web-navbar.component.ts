@@ -7,7 +7,9 @@ import { Component, EventEmitter, Output } from '@angular/core';
   standalone: false,
 })
 export class HomeWebNavbarComponent {
+  @Output() openCart = new EventEmitter<void>();
   @Output() addProduct = new EventEmitter<void>();
+  @Output() refreshList = new EventEmitter<void>();
   @Output() logout = new EventEmitter<void>();
   @Output() openProfile = new EventEmitter<void>();
 }
