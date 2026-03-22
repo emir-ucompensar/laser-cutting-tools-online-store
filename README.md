@@ -19,6 +19,9 @@ The application supports email OTP authentication, product catalog management, p
 
 Linux or WSL2 environment with Node.js, pnpm, and Android SDK tools available in PATH.
 
+> [!TIP]
+> For a quick functional validation, install the APK and create a test account. A temporary email service such as https://mail.tm can be used to speed up OTP registration. Do not upload sensitive photos to the service. After testing, delete any uploaded content to preserve privacy.
+
 ## Installation
 
 ```bash
