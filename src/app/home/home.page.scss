@@ -75,9 +75,9 @@ ion-header ion-button[fill='clear'] {
   .product-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1px;
+    gap: var(--app-spacing-md);
     padding: var(--app-spacing-md);
-    background: var(--color-border);
+    background: transparent;
   }
 }
 
